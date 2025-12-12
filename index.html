@@ -3,40 +3,481 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My GitHub Pages Site</title>
+  <title>家庭教師を探す | Study Meet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --ink: #0f1c2e;
+      --muted: #4c5565;
+      --paper: #ffffff;
+      --accent: #0ea5e9;
+      --accent-2: #f97316;
+      --border: #e4e9f2;
+      --shadow: 0 12px 50px rgba(15, 28, 46, 0.08);
+    }
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Hiragino Kaku Gothic Pro', Meiryo, sans-serif;
-      background-color: #f5f7fb;
-      color: #1e263b;
       margin: 0;
-      padding: 2rem;
+      font-family: 'Noto Sans JP', 'Space Grotesk', system-ui, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 10% 20%, rgba(14,165,233,0.08), transparent 25%),
+                  radial-gradient(circle at 80% 10%, rgba(249,115,22,0.08), transparent 22%),
+                  radial-gradient(circle at 20% 70%, rgba(16,185,129,0.08), transparent 22%),
+                  linear-gradient(135deg, #fdf3e8 0%, #e8f6ff 55%, #f3fff5 100%);
+      min-height: 100vh;
+      padding: 3rem 1.5rem 4rem;
     }
     header {
-      text-align: center;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid #dfe4ee;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      align-items: center;
     }
-    section {
-      max-width: 640px;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(14,165,233,0.12);
+      color: #055d8d;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    .eyebrow span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 8px rgba(14,165,233,0.12);
+    }
+    h1 {
+      font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+      font-size: clamp(2.4rem, 4vw, 3rem);
+      margin: 1rem 0 0.5rem;
+      line-height: 1.2;
+    }
+    .lead {
+      color: var(--muted);
+      max-width: 560px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .hero-card {
+      background: var(--paper);
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .stat-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      flex: 1 1 150px;
+      background: linear-gradient(135deg, rgba(14,165,233,0.12), rgba(249,115,22,0.08));
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 0.2rem;
+    }
+    .filters {
+      max-width: 1200px;
+      margin: 2.5rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .filter-title {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .chip {
+      padding: 0.65rem 1rem;
+      border-radius: 12px;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 6px 20px rgba(15, 28, 46, 0.05);
+    }
+    .chip:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 32px rgba(14,165,233,0.15);
+    }
+    .chip.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 12px 32px rgba(14,165,233,0.25);
+    }
+    .tutors {
+      max-width: 1200px;
       margin: 2rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .card {
+      background: var(--paper);
+      border-radius: 16px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      display: grid;
+      gap: 0.75rem;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(15, 28, 46, 0.16);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(249,115,22,0.2));
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #0b4870;
+      font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    }
+    .name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0.1rem 0 0;
+    }
+    .tag-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tag {
+      background: rgba(14,165,233,0.08);
+      color: #0f3750;
+      padding: 0.35rem 0.65rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .tag.orange {
+      background: rgba(249,115,22,0.12);
+      color: #7a2d05;
+    }
+    .bio {
+      color: var(--muted);
       line-height: 1.6;
-      background: white;
-      padding: 2rem;
-      box-shadow: 0 2px 8px rgba(30, 38, 59, 0.1);
-      border-radius: 8px;
+      margin: 0;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .rating {
+      font-weight: 700;
+      color: #0f3750;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+    .rating span {
+      color: #f97316;
+    }
+    .cta-btn {
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(14,165,233,0.22);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(14,165,233,0.3);
+    }
+    .cta-wide {
+      max-width: 1200px;
+      margin: 2.5rem auto 0;
+      background: linear-gradient(135deg, rgba(14,165,233,0.14), rgba(249,115,22,0.14));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+    .cta-wide strong {
+      font-size: 1.3rem;
+      font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .ghost-btn {
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--ink);
+      background: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .ghost-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 28px rgba(15, 28, 46, 0.12);
+    }
+    footer {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>ようこそ</h1>
-    <p>GitHub Pagesで公開しているシンプルなサイトです</p>
+    <div>
+      <div class="eyebrow"><span></span>家庭教師を探そう</div>
+      <h1>あなたに合う先生と、マンツーマンで学びを深める</h1>
+      <p class="lead">教科・レベル・目標に合わせて、経験豊富な家庭教師をマッチング。オンラインも対面も、希望のスタイルでじっくり学べます。</p>
+      <div class="chips" aria-label="人気カテゴリ">
+        <div class="chip active">数学</div>
+        <div class="chip">英語</div>
+        <div class="chip">化学</div>
+        <div class="chip">小論文</div>
+        <div class="chip">中学受験</div>
+        <div class="chip">プログラミング</div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="stat-row">
+        <div class="stat">
+          <strong>320名</strong>
+          <span>登録家庭教師</span>
+        </div>
+        <div class="stat">
+          <strong>4.9/5</strong>
+          <span>平均レビュー</span>
+        </div>
+        <div class="stat">
+          <strong>12時間</strong>
+          <span>最短マッチ時間</span>
+        </div>
+      </div>
+      <p class="lead" style="margin:0;">希望条件を伝えるだけで、最適な先生候補を3名ピックアップしてご提案します。</p>
+    </div>
   </header>
-  <section>
-    <h2>Self introduction</h2>
-    <p>ここに簡単な自己紹介やプロジェクトの紹介を載せる予定です。</p>
-    <p>必要に応じてセクションを追加して、好きなコンテンツを並べてください。</p>
+
+  <section class="filters">
+    <div class="filter-title">教科から探す</div>
+    <div class="chips">
+      <div class="chip">数学IA/IIB</div>
+      <div class="chip">英語長文</div>
+      <div class="chip">物理</div>
+      <div class="chip">化学</div>
+      <div class="chip">現代文</div>
+      <div class="chip">世界史</div>
+      <div class="chip">TOEIC</div>
+      <div class="chip">プログラミング</div>
+    </div>
   </section>
+
+  <section class="filters" style="margin-top: 1rem;">
+    <div class="filter-title">学習スタイル</div>
+    <div class="chips">
+      <div class="chip active">オンライン</div>
+      <div class="chip">訪問（首都圏）</div>
+      <div class="chip">スポット指導</div>
+      <div class="chip">定期テスト対策</div>
+      <div class="chip">受験フルサポート</div>
+    </div>
+  </section>
+
+  <section class="tutors" aria-label="家庭教師一覧">
+    <article class="card">
+      <div class="card-header">
+        <div class="avatar">KM</div>
+        <div>
+          <p class="name">加藤 美咲</p>
+          <p class="meta">東京大学 教育学部 / 5年指導</p>
+        </div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">数学IA・IIB</span>
+        <span class="tag orange">定期テスト</span>
+        <span class="tag">オンライン</span>
+      </div>
+      <p class="bio">苦手意識が強い生徒さんでも、図解と対話でじっくり理解を積み上げます。定期テスト平均＋25点の実績。</p>
+      <div class="card-footer">
+        <div class="rating"><span>★</span>4.9 (42件)</div>
+        <button class="cta-btn">メッセージする</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="avatar">SR</div>
+        <div>
+          <p class="name">佐藤 諒</p>
+          <p class="meta">慶應義塾大学 法学部 / 6年指導</p>
+        </div>
+      </div>
+      <div class="tag-row">
+        <span class="tag orange">英語長文</span>
+        <span class="tag">リスニング</span>
+        <span class="tag">大学受験</span>
+      </div>
+      <p class="bio">共通テスト〜早慶対策まで幅広く対応。音読と要約を組み合わせた「聴く＋読む」トレーニングで伸ばします。</p>
+      <div class="card-footer">
+        <div class="rating"><span>★</span>4.8 (51件)</div>
+        <button class="cta-btn">メッセージする</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="avatar">HM</div>
+        <div>
+          <p class="name">本田 真</p>
+          <p class="meta">京都大学 工学部 / 4年指導</p>
+        </div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">物理</span>
+        <span class="tag orange">化学</span>
+        <span class="tag">難関大</span>
+      </div>
+      <p class="bio">難問題を「どこで詰まるか」を言語化しながら解説。演習スケジュールの設計から添削まで伴走します。</p>
+      <div class="card-footer">
+        <div class="rating"><span>★</span>5.0 (33件)</div>
+        <button class="cta-btn">メッセージする</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="avatar">YK</div>
+        <div>
+          <p class="name">山本 航</p>
+          <p class="meta">早稲田大学 文化構想学部 / 7年指導</p>
+        </div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">現代文</span>
+        <span class="tag orange">小論文</span>
+        <span class="tag">オンライン</span>
+      </div>
+      <p class="bio">文章の「型」を見える化して読み方をトレーニング。添削を重ねて書く力も養成します。帰国子女の日本語補習も可。</p>
+      <div class="card-footer">
+        <div class="rating"><span>★</span>4.9 (48件)</div>
+        <button class="cta-btn">メッセージする</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="avatar">MN</div>
+        <div>
+          <p class="name">宮田 奈々</p>
+          <p class="meta">大阪大学 基礎工学部 / 3年指導</p>
+        </div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">中学受験 算数</span>
+        <span class="tag orange">思考力</span>
+        <span class="tag">訪問可</span>
+      </div>
+      <p class="bio">図形・場合の数が得意。つまずきやすい単元を遊び感覚のパズルで解説し、理解を定着させます。</p>
+      <div class="card-footer">
+        <div class="rating"><span>★</span>4.7 (29件)</div>
+        <button class="cta-btn">メッセージする</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="avatar">AK</div>
+        <div>
+          <p class="name">秋山 啓太</p>
+          <p class="meta">外資ITエンジニア / 5年指導</p>
+        </div>
+      </div>
+      <div class="tag-row">
+        <span class="tag orange">Python</span>
+        <span class="tag">情報数学</span>
+        <span class="tag">作品添削</span>
+      </div>
+      <p class="bio">実務経験を踏まえてコードレビューも実施。競プロ・情報オリンピック対策、アプリ開発の伴走も対応します。</p>
+      <div class="card-footer">
+        <div class="rating"><span>★</span>4.9 (37件)</div>
+        <button class="cta-btn">メッセージする</button>
+      </div>
+    </article>
+  </section>
+
+  <section class="cta-wide">
+    <strong>条件を伝えるだけで、無料で先生候補を受け取れます。</strong>
+    <div class="cta-actions">
+      <button class="cta-btn">無料で相談する</button>
+      <button class="ghost-btn">先生の掲載について</button>
+    </div>
+  </section>
+
+  <footer>
+    学校や塾と併用しながら「わかる」を増やす家庭教師サービスです。掲載希望・法人契約もお気軽にご相談ください。
+  </footer>
 </body>
 </html>
