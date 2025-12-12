@@ -303,6 +303,76 @@
       font-size: 0.95rem;
       text-align: center;
     }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 28, 46, 0.4);
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      z-index: 10;
+      backdrop-filter: blur(3px);
+    }
+    .modal {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: min(520px, 100%);
+      box-shadow: 0 24px 80px rgba(15, 28, 46, 0.22);
+      border: 1px solid var(--border);
+    }
+    .modal h3 {
+      margin: 0 0 0.25rem;
+      font-size: 1.35rem;
+    }
+    .modal p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+    .field {
+      display: grid;
+      gap: 0.4rem;
+      margin-bottom: 0.9rem;
+    }
+    .field label {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .field input,
+    .field textarea {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 0.85rem;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .field input:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(14,165,233,0.18);
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+    .close-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    .close-btn:hover {
+      background: #f3f5f9;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 <body>
@@ -390,7 +460,7 @@
       <p class="bio">苦手意識が強い生徒さんでも、図解と対話でじっくり理解を積み上げます。定期テスト平均＋25点の実績。</p>
       <div class="card-footer">
         <div class="rating"><span>★</span>4.9 (42件)</div>
-        <button class="cta-btn">メッセージする</button>
+        <button class="cta-btn message-btn" type="button" data-teacher="加藤 美咲">メッセージする</button>
       </div>
     </article>
 
@@ -411,7 +481,7 @@
       <p class="bio">共通テスト〜早慶対策まで幅広く対応。音読と要約を組み合わせた「聴く＋読む」トレーニングで伸ばします。</p>
       <div class="card-footer">
         <div class="rating"><span>★</span>4.8 (51件)</div>
-        <button class="cta-btn">メッセージする</button>
+        <button class="cta-btn message-btn" type="button" data-teacher="佐藤 諒">メッセージする</button>
       </div>
     </article>
 
@@ -431,7 +501,7 @@
       <p class="bio">難問題を「どこで詰まるか」を言語化しながら解説。演習スケジュールの設計から添削まで伴走します。</p>
       <div class="card-footer">
         <div class="rating"><span>★</span>5.0 (33件)</div>
-        <button class="cta-btn">メッセージする</button>
+        <button class="cta-btn message-btn" type="button" data-teacher="本田 真">メッセージする</button>
       </div>
     </article>
 
@@ -451,7 +521,7 @@
       <p class="bio">文章の「型」を見える化して読み方をトレーニング。添削を重ねて書く力も養成します。帰国子女の日本語補習も可。</p>
       <div class="card-footer">
         <div class="rating"><span>★</span>4.9 (48件)</div>
-        <button class="cta-btn">メッセージする</button>
+        <button class="cta-btn message-btn" type="button" data-teacher="山本 航">メッセージする</button>
       </div>
     </article>
 
@@ -471,7 +541,7 @@
       <p class="bio">図形・場合の数が得意。つまずきやすい単元を遊び感覚のパズルで解説し、理解を定着させます。</p>
       <div class="card-footer">
         <div class="rating"><span>★</span>4.7 (29件)</div>
-        <button class="cta-btn">メッセージする</button>
+        <button class="cta-btn message-btn" type="button" data-teacher="宮田 奈々">メッセージする</button>
       </div>
     </article>
 
@@ -491,7 +561,7 @@
       <p class="bio">実務経験を踏まえてコードレビューも実施。競プロ・情報オリンピック対策、アプリ開発の伴走も対応します。</p>
       <div class="card-footer">
         <div class="rating"><span>★</span>4.9 (37件)</div>
-        <button class="cta-btn">メッセージする</button>
+        <button class="cta-btn message-btn" type="button" data-teacher="秋山 啓太">メッセージする</button>
       </div>
     </article>
   </section>
@@ -508,6 +578,32 @@
   <footer>
     学校や塾と併用しながら「わかる」を増やす家庭教師サービスです。掲載希望・法人契約もお気軽にご相談ください。
   </footer>
+
+  <div id="message-modal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h3 id="modal-title">先生にメッセージ</h3>
+      <p id="modal-subtitle">先生に初回メッセージを送信できます。</p>
+      <form id="message-form">
+        <div class="field">
+          <label for="student-name">あなたの名前</label>
+          <input id="student-name" name="name" type="text" placeholder="例: 山田 太郎" required>
+        </div>
+        <div class="field">
+          <label for="contact">連絡先メール</label>
+          <input id="contact" name="contact" type="email" placeholder="email@example.com" required>
+        </div>
+        <div class="field">
+          <label for="message">メッセージ内容</label>
+          <textarea id="message" name="message" rows="4" placeholder="ご希望の教科・曜日・目標などを教えてください。" required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="close-btn" id="modal-cancel">閉じる</button>
+          <button type="submit" class="cta-btn">送信する</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
     const state = { subject: null, style: null };
     const summary = document.getElementById('filter-summary');
@@ -558,6 +654,53 @@
     });
 
     filterCards();
+
+    // Modal handling for messaging
+    const modal = document.getElementById('message-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSubtitle = document.getElementById('modal-subtitle');
+    const modalCancel = document.getElementById('modal-cancel');
+    const form = document.getElementById('message-form');
+    let lastFocused;
+
+    function openModal(teacherName) {
+      modalTitle.textContent = `${teacherName} にメッセージ`;
+      modalSubtitle.textContent = `${teacherName} へ初回メッセージを送信します。返信はメールで届きます。`;
+      modal.hidden = false;
+      lastFocused = document.activeElement;
+      form.reset();
+      document.getElementById('student-name').focus();
+    }
+
+    function closeModal() {
+      modal.hidden = true;
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      }
+    }
+
+    document.querySelectorAll('.message-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.dataset.teacher || '先生';
+        openModal(name);
+      });
+    });
+
+    modalCancel.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!modal.hidden && e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('メッセージを送信しました！\n※デモ用のため実際の送信は行われません。');
+      closeModal();
+    });
   </script>
 </body>
 </html>
