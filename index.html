@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -159,6 +160,9 @@
       display: grid;
       gap: 0.75rem;
     }
+    .card.is-hidden {
+      display: none;
+    }
     .card:hover {
       transform: translateY(-6px);
       box-shadow: 0 20px 48px rgba(15, 28, 46, 0.16);
@@ -278,6 +282,20 @@
       border-color: var(--accent);
       box-shadow: 0 12px 28px rgba(15, 28, 46, 0.12);
     }
+    .empty {
+      max-width: 1200px;
+      margin: 1.5rem auto 0;
+      color: var(--muted);
+      background: #fff;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(15, 28, 46, 0.06);
+    }
+    [hidden] {
+      display: none !important;
+    }
     footer {
       max-width: 1200px;
       margin: 2rem auto 0;
@@ -294,12 +312,12 @@
       <h1>あなたに合う先生と、マンツーマンで学びを深める</h1>
       <p class="lead">教科・レベル・目標に合わせて、経験豊富な家庭教師をマッチング。オンラインも対面も、希望のスタイルでじっくり学べます。</p>
       <div class="chips" aria-label="人気カテゴリ">
-        <div class="chip active">数学</div>
-        <div class="chip">英語</div>
-        <div class="chip">化学</div>
-        <div class="chip">小論文</div>
-        <div class="chip">中学受験</div>
-        <div class="chip">プログラミング</div>
+        <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="数学">数学</button>
+        <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="英語">英語</button>
+        <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="化学">化学</button>
+        <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="小論文">小論文</button>
+        <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="中学受験">中学受験</button>
+        <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="プログラミング">プログラミング</button>
       </div>
     </div>
     <div class="hero-card">
@@ -324,27 +342,26 @@
   <section class="filters">
     <div class="filter-title">教科から探す</div>
     <div class="chips" id="subject-chips">
-      <button class="chip" data-filter="subject" data-group="subject" data-value="数学IAIIB">数学IA/IIB</button>
-      <button class="chip" data-filter="subject" data-group="subject" data-value="英語長文">英語長文</button>
-      <button class="chip" data-filter="subject" data-group="subject" data-value="物理">物理</button>
-      <button class="chip" data-filter="subject" data-group="subject" data-value="化学">化学</button>
-      <button class="chip" data-filter="subject" data-group="subject" data-value="現代文">現代文</button>
-      <button class="chip" data-filter="subject" data-group="subject" data-value="世界史">世界史</button>
-      <button class="chip" data-filter="subject" data-group="subject" data-value="TOEIC">TOEIC</button>
-      <button class="chip" data-filter="subject" data-group="subject" data-value="プログラミング">プログラミング</button>
-      <button class="chip" data-filter="subject" data-group="subject" data-value="中学受験">中学受験</button>
-      <button class="chip" data-filter="subject" data-group="subject" data-value="Python">Python</button>
+      <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="数学">数学IA/IIB</button>
+      <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="英語">英語長文</button>
+      <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="物理">物理</button>
+      <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="化学">化学</button>
+      <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="現代文">現代文</button>
+      <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="TOEIC">TOEIC</button>
+      <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="プログラミング">プログラミング</button>
+      <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="中学受験">中学受験</button>
+      <button class="chip" type="button" data-filter="subject" data-group="subject" data-value="Python">Python</button>
     </div>
   </section>
 
   <section class="filters" style="margin-top: 1rem;">
     <div class="filter-title">学習スタイル</div>
     <div class="chips" id="style-chips">
-      <button class="chip" data-filter="style" data-group="style" data-value="オンライン">オンライン</button>
-      <button class="chip" data-filter="style" data-group="style" data-value="訪問">訪問（首都圏）</button>
-      <button class="chip" data-filter="style" data-group="style" data-value="スポット">スポット指導</button>
-      <button class="chip" data-filter="style" data-group="style" data-value="定期テスト">定期テスト対策</button>
-      <button class="chip" data-filter="style" data-group="style" data-value="受験フルサポート">受験フルサポート</button>
+      <button class="chip" type="button" data-filter="style" data-group="style" data-value="オンライン">オンライン</button>
+      <button class="chip" type="button" data-filter="style" data-group="style" data-value="訪問">訪問（首都圏）</button>
+      <button class="chip" type="button" data-filter="style" data-group="style" data-value="スポット">スポット指導</button>
+      <button class="chip" type="button" data-filter="style" data-group="style" data-value="定期テスト">定期テスト対策</button>
+      <button class="chip" type="button" data-filter="style" data-group="style" data-value="受験フルサポート">受験フルサポート</button>
     </div>
   </section>
 
@@ -357,7 +374,7 @@
   </section>
 
   <section class="tutors" aria-label="家庭教師一覧">
-    <article class="card tutor-card" data-subjects="数学,数学IAIIB,定期テスト" data-styles="オンライン">
+    <article class="card tutor-card" data-subjects="数学,数学IAIIB" data-styles="オンライン,定期テスト">
       <div class="card-header">
         <div class="avatar">KM</div>
         <div>
@@ -377,7 +394,7 @@
       </div>
     </article>
 
-    <article class="card tutor-card" data-subjects="英語,英語長文,リスニング,大学受験" data-styles="オンライン,受験フルサポート">
+    <article class="card tutor-card" data-subjects="英語,英語長文,リスニング,大学受験,TOEIC" data-styles="オンライン,受験フルサポート">
       <div class="card-header">
         <div class="avatar">SR</div>
         <div>
@@ -389,6 +406,7 @@
         <span class="tag orange">英語長文</span>
         <span class="tag">リスニング</span>
         <span class="tag">大学受験</span>
+        <span class="tag">TOEIC</span>
       </div>
       <p class="bio">共通テスト〜早慶対策まで幅広く対応。音読と要約を組み合わせた「聴く＋読む」トレーニングで伸ばします。</p>
       <div class="card-footer">
@@ -417,7 +435,7 @@
       </div>
     </article>
 
-    <article class="card tutor-card" data-subjects="現代文,小論文,オンライン" data-styles="オンライン,スポット,受験フルサポート">
+    <article class="card tutor-card" data-subjects="現代文,小論文" data-styles="オンライン,スポット,受験フルサポート">
       <div class="card-header">
         <div class="avatar">YK</div>
         <div>
@@ -477,6 +495,7 @@
       </div>
     </article>
   </section>
+  <p id="empty-state" class="empty" hidden>条件に合う先生が見つかりませんでした。フィルターを変更してみてください。</p>
 
   <section class="cta-wide">
     <strong>条件を伝えるだけで、無料で先生候補を受け取れます。</strong>
@@ -493,14 +512,41 @@
     const state = { subject: null, style: null };
     const summary = document.getElementById('filter-summary');
     const countLabel = document.getElementById('result-count');
+    const emptyState = document.getElementById('empty-state');
+    const chips = Array.from(document.querySelectorAll('[data-filter]'));
+    const tutors = Array.from(document.querySelectorAll('.tutor-card'));
 
-    const chips = document.querySelectorAll('[data-filter]');
+    function normalize(text) {
+      return (text || '').trim().toLowerCase();
+    }
+
+    function filterCards() {
+      let visibleCount = 0;
+      tutors.forEach(card => {
+        const subjects = normalize(card.dataset.subjects);
+        const styles = normalize(card.dataset.styles);
+        const subjectMatch = !state.subject || subjects.includes(normalize(state.subject));
+        const styleMatch = !state.style || styles.includes(normalize(state.style));
+        const show = subjectMatch && styleMatch;
+        card.classList.toggle('is-hidden', !show);
+        if (show) visibleCount += 1;
+      });
+      summary.textContent = `教科: ${state.subject ?? '未選択'} / スタイル: ${state.style ?? '未選択'}`;
+      countLabel.textContent = `${visibleCount}名がヒット`;
+      if (emptyState) {
+        emptyState.hidden = visibleCount !== 0;
+      }
+    }
+
     chips.forEach(chip => {
+      if (chip.classList.contains('active')) {
+        state[chip.dataset.group] = chip.dataset.value;
+      }
       chip.addEventListener('click', () => {
         const group = chip.dataset.group;
         const value = chip.dataset.value;
         const isActive = chip.classList.contains('active');
-        document.querySelectorAll(`[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+        chips.filter(c => c.dataset.group === group).forEach(c => c.classList.remove('active'));
         if (!isActive) {
           chip.classList.add('active');
           state[group] = value;
@@ -510,22 +556,6 @@
         filterCards();
       });
     });
-
-    function filterCards() {
-      const tutors = document.querySelectorAll('.tutor-card');
-      let visibleCount = 0;
-      tutors.forEach(card => {
-        const subjects = (card.dataset.subjects || '').toLowerCase();
-        const styles = (card.dataset.styles || '').toLowerCase();
-        const subjectMatch = !state.subject || subjects.includes(state.subject.toLowerCase());
-        const styleMatch = !state.style || styles.includes(state.style.toLowerCase());
-        const show = subjectMatch && styleMatch;
-        card.style.display = show ? 'grid' : 'none';
-        if (show) visibleCount += 1;
-      });
-      summary.textContent = `教科: ${state.subject ?? '未選択'} / スタイル: ${state.style ?? '未選択'}`;
-      countLabel.textContent = `${visibleCount}名がヒット`;
-    }
 
     filterCards();
   </script>
